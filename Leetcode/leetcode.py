@@ -439,3 +439,33 @@ class Solution:
         if one.val != two.val:
             return False
         return self.helper(one.left,two.right) and self.helper(one.right, two.left)
+
+* 108 EASY SORTED ARRAY TO HEIGHT BALANCED BINARY TREE
+
+'''
+  Given an integer array nums where the elements are sorted in ascending order, convert it to a height-balanced binary search tree.
+  A height-balanced binary tree is a binary tree in which the depth of the two subtrees of every node never differs by more than one.
+  Explanation: 
+    Height Balanced means that each side of a tree or subtree cannot differe by a height of more than 1.
+    So we cant have the left side with a height of 2 and the right side with a height of 4>
+    This is mainly to prevent a tree from having all of the values on one side which would basically be a linked list not a tree
+
+  [-10,-3,0,5,9]
+      0
+    /   \
+  -10    5
+  / \   / \ 
+    -3     9
+'''
+
+class Solution:
+    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+      def helper(l,r):
+        if l > r: 
+          return None 
+        m = (l+r)//2
+        root = TreeNode(nums[m])
+        root.left = helper(l, m-1)
+        root.right = helper(m+1,r)
+        return root
+      return helper(0, len(nums)-1)
