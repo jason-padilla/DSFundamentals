@@ -469,3 +469,30 @@ class Solution:
         root.right = helper(m+1,r)
         return root
       return helper(0, len(nums)-1)
+
+* 101 IF BALANCED BINARY TREE
+    '''
+    Given a binary tree, determine if it is height-balanced.
+    For this problem, a height-balanced binary tree is defined as:
+    a binary tree in which the left and right subtrees of every node differ in height by no more than 1.
+    '''
+
+    # Definition for a binary tree node.
+    # class TreeNode:
+    #     def __init__(self, val=0, left=None, right=None):
+    #         self.val = val
+    #         self.left = left
+    #         self.right = right
+
+    class Solution:
+        def isBalanced(self, root: Optional[TreeNode]) -> bool:
+            def helper(node, height)->(int,bool):
+                if not node:
+                    return (height,True)
+                else:
+                    left, leftBalanced = helper(node.left,height+1)
+                    right, rightBalanced = helper(node.right,height+1)
+                    if abs(left - right) > 1 or leftBalanced == False or rightBalanced == False:
+                        return (height,False)
+                    return (max(left,right),True)
+            return helper(root,1)[1]
