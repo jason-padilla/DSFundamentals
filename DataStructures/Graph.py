@@ -4,7 +4,15 @@ class Graph:
     self.node_list = {}
     for node in self.nodes: 
       self.node_list[node] = set()
-  
+      
+  def __str__(self):
+    if not self.node_list: return "{}"
+    else:
+      result = ""
+      for node in self.node_list:
+        result += node + " -> " + str(self.node_list[node]) + "\n"
+      return result
+
   def print(self):
     if not self.nodes: print("{}")
     else:
@@ -13,8 +21,16 @@ class Graph:
         print(" ",node," -> ",self.node_list[node])
       print("}")
   
+  def display(self):
+    if not self.node_list: return "{}"
+    else:
+      result = ""
+      for node in self.node_list:
+        result += " " + node + " -> " + str(self.node_list[node])
+      return result
+
   def add_edge(self, a, b):
-    if a and b in self.node_list:
+    if a in self.node_list and b in self.node_list:
       self.node_list[a].add(b)
       self.node_list[b].add(a)
 
@@ -34,7 +50,7 @@ class Graph:
 
 class DirectedGraph(Graph): 
   def add_edge(self, a, b):
-    if a and b in self.node_list:
+    if a in self.node_list and b in self.node_list:
       self.node_list[a].add(b)
 
   def del_node(self,node):
@@ -57,7 +73,6 @@ class DirectedGraph(Graph):
           paths.append(p)
     return paths
 
-
   def get_shortest_path(self, start, end, path=[]):
     path = path+[start]
     if start == end:
@@ -77,12 +92,14 @@ if __name__ == "__main__":
   #GRAPH
   all_edges = [("A","B"),("A","C"),("B","D"),("C","D"),("C","E"),("D","E"),("D","E")]
   graph = Graph(["A","B","C","D","E"])
-  # for edge1,edge2 in all_edges:
-  #   graph.add_edge(edge1, edge2)
+  for edge1,edge2 in all_edges:
+    graph.add_edge(edge1, edge2)
   # graph.add_node("F")
   # graph.print()
   # graph.del_node("C")
-  graph.print()
+  print("-----------")
+  graph.add_edge("F", "B")
+  print(graph)
   # graph.degree("A")
 
   #DIRECTED GRAPH

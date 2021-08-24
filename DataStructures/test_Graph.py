@@ -1,4 +1,5 @@
 import unittest
+import Graph as mainGraph
 
 class Graph: 
   def __init__(self,Nodes=[]):
@@ -18,10 +19,11 @@ class Graph:
     else:
       result = ""
       for node in self.node_list:
-        result += node + " -> " + str(self.node_list[node])
+        result += " " + node + " -> " + str(self.node_list[node])
       return result
+
   def add_edge(self, a, b):
-    if a and b in self.node_list:
+    if a in self.node_list and b in self.node_list:
       self.node_list[a].add(b)
       self.node_list[b].add(a)
 
@@ -41,7 +43,7 @@ class Graph:
 
 class DirectedGraph(Graph): 
   def add_edge(self, a, b):
-    if a and b in self.node_list:
+    if a in self.node_list and b in self.node_list:
       self.node_list[a].add(b)
 
   def del_node(self,node):
@@ -63,7 +65,6 @@ class DirectedGraph(Graph):
         for p in new_paths: 
           paths.append(p)
     return paths
-
 
   def get_shortest_path(self, start, end, path=[]):
     path = path+[start]
@@ -87,6 +88,45 @@ class TestLinkedList(unittest.TestCase):
 
   def test11_graph_5nodes(self):
     graph = Graph(["A","B","C","D","E"])
-    self.assertEqual(graph.display(), "A -> set()B -> set()C -> set()D -> set()E -> set()")
+    self.assertEqual(graph.display(), " A -> set() B -> set() C -> set() D -> set() E -> set()")
+  
+  def test12_add_one_edge(self):
+    graph = Graph(["A","B","C","D","E"])
+    graph.add_edge("A", "B")
+    main = mainGraph.Graph(["A","B","C","D","E"])
+    main.add_edge("A", "B")
+    self.assertEqual(graph.display(), main.display())
+
+  def test13_add_nonexist_edgeA(self):
+    graph = Graph(["A","B","C","D","E"])
+    graph.add_edge("F", "B")
+    main = mainGraph.Graph(["A","B","C","D","E"])
+    main.add_edge("F", "B")
+    self.assertEqual(graph.display(), main.display())
+
+  def test14_add_nonexist_edgeB(self):
+    graph = Graph(["A","B","C","D","E"])
+    graph.add_edge("B", "F")
+    main = mainGraph.Graph(["A","B","C","D","E"])
+    main.add_edge("B", "F")
+    self.assertEqual(graph.display(), main.display())
+
+  def test15_add_nonexist_edgeC(self):
+    graph = Graph(["A","B","C","D","E"])
+    graph.add_edge("F", "F")
+    main = mainGraph.Graph(["A","B","C","D","E"])
+    main.add_edge("F", "F")
+    self.assertEqual(graph.display(), main.display())
+
+  def test16_add_edges(self):
+    all_edges = [("A","B"),("A","C"),("B","D"),("C","D"),("C","E"),("D","E"),("D","E")]
+    graph = Graph(["A","B","C","D","E"])
+    for edge1,edge2 in all_edges:
+      graph.add_edge(edge1, edge2)
+    main = mainGraph.Graph(["A","B","C","D","E"])
+    for edge1,edge2 in all_edges:
+      main.add_edge(edge1, edge2)
+    self.assertEqual(graph.display(),main.display())
+
 if __name__ == '__main__':
   unittest.main()
