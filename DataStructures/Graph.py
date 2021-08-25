@@ -1,5 +1,5 @@
 class Graph: 
-  def __init__(self,Nodes):
+  def __init__(self,Nodes=[]):
     self.nodes = Nodes
     self.node_list = {}
     for node in self.nodes: 
@@ -46,7 +46,7 @@ class Graph:
 
   def degree(self,node):
     if node in self.node_list:
-      print(len(self.node_list[node]))
+      return len(self.node_list[node])
 
 class DirectedGraph(Graph): 
   def add_edge(self, a, b):
@@ -54,16 +54,17 @@ class DirectedGraph(Graph):
       self.node_list[a].add(b)
 
   def del_node(self,node):
-    del self.node_list[node]
-    for key in self.node_list:
-      if node in self.node_list[key]:
-        self.node_list[key].remove(node)
+    if node in self.node_list:
+      del self.node_list[node]
+      for key in self.node_list:
+        if node in self.node_list[key]:
+          self.node_list[key].remove(node)
 
   def get_paths(self, start, end, path=[]):
     path = path+[start]
     if start == end:
       return [path]
-    if start not in self.node_list:
+    if start not in self.node_list or end not in self.node_list:
       return []
     paths = []
     for city in self.node_list[start]:
@@ -77,7 +78,7 @@ class DirectedGraph(Graph):
     path = path+[start]
     if start == end:
       return path
-    if start not in self.node_list:
+    if start not in self.node_list or end not in self.node_list:
       return []
     shortest = None
     for city in self.node_list[start]:
@@ -94,13 +95,7 @@ if __name__ == "__main__":
   graph = Graph(["A","B","C","D","E"])
   for edge1,edge2 in all_edges:
     graph.add_edge(edge1, edge2)
-  # graph.add_node("F")
-  # graph.print()
-  # graph.del_node("C")
-  print("-----------")
-  graph.add_edge("F", "B")
   print(graph)
-  # graph.degree("A")
 
   #DIRECTED GRAPH
   ''' 
@@ -110,15 +105,10 @@ if __name__ == "__main__":
           \   |   /^
            ^ Dubai
   '''
-  routes = [("Mumbai","Paris"),("Mumbai","Dubai"),("Paris","Dubai"),("Paris","New York"),("Dubai","New York"),("New York","Toronto")]
-
   paths = DirectedGraph(["Mumbai","Paris","Dubai","New York","Toronto"])
-
+  routes = [("Mumbai","Paris"),("Mumbai","Dubai"),("Paris","Dubai"),("Paris","New York"),("Dubai","New York"),("New York","Toronto")]
   for fromCity,toCity in routes:
     paths.add_edge(fromCity, toCity)
-  paths.print()
-  
   print(paths.get_paths("Mumbai","Toronto"))
-  print(paths.get_shortest_path("Mumbai","Toronto"))
-  paths.del_node("New York")
+  print(paths.get_shortest_path("Mumbai","Texas"))
   paths.print()  
