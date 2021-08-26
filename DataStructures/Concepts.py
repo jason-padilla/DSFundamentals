@@ -81,6 +81,30 @@
             root = root.right
           return result
 
+* STACKS 
+  * DESC
+    - Follows a LIFO operation; Last In First Out 
+    - Example use is for browser history: 
+      - keeps track of previous links
+      - new visited link is added to the top of the stack 
+      - can go back to previous link by popping it out 
+    - Microsoft Word, Compiler for CTRL+Z 
+  * STACKS IN PYTHON LIST VS COLLECTIONS DEQUE 
+    - python lists are kind of desgined like stacks 
+    - you can .pop() and .push() to a list 
+    - however in terms of memory when we add an element thats outside of the 
+      amount allocated for the list, the list is duplicated to add more memoery 
+    - its better if we use an actual stack like collections.deque 
+  * PYTHON COLLECTIONS DEQUE 
+    - from collections import deque
+    - stack = deque()
+    - stack.append("first append") #deque uses append instead of the tradition push
+    - stack.append("second append")
+    - stack.pop()
+  * BIG O
+    - push pop element : O(1)
+    - search elm: O(n)
+
 * HEIGHT BALANCED BINARY TREE 
   '''
     Given an integer array nums where the elements are sorted in ascending order, convert it to a height-balanced binary search tree.
