@@ -102,9 +102,28 @@
     - stack.append("second append")
     - stack.pop()
   * BIG O
-    - push pop element : O(1)
+    - push/pop element : O(1)
     - search elm: O(n)
 
+* QUEUES 
+  * DESC 
+    - use the form of FIFO; first in first out 
+    - same as standing in line, first person that gets there is the first person out 
+    - if you think about a list going left->right the next items will always be added to the left so index 0
+  * IMPLEMENTATIONS 
+    list q = [] q.insert(0,"first") q.insert(0,"second") #-> ['second','first']
+    collections.deque q = deque() q.appendleft('first') q.appendleft('second') #-> deque(['second','first'])
+  * COLLECTIONS DEQUE AS QUEUE 
+    - deque can be used to implement a stack but it can also be used as a queue 
+    - q = deque() 
+    - q.appendleft(1)
+    - q.appendleft(2)
+    - q.appendleft(3)
+    - q.pop()
+  * BIG O
+    - push/pop element : O(1)
+    - search elm: O(n)
+    
 * HEIGHT BALANCED BINARY TREE 
   '''
     Given an integer array nums where the elements are sorted in ascending order, convert it to a height-balanced binary search tree.
