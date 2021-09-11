@@ -407,68 +407,66 @@
             return self.isSameTree(p.left,q.left) and self.isSameTree(p.right,q.right)
 
 * 101 EASY SYMMETRICAL TREE 
+    '''
+        Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+        1
+        /   \
+    2      2
+    /   \  /   \
+    3    4 4    3
+    Valid
+    1
+    /  \
+    Valid
+    '''
 
-'''
-    Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
-      1
-    /   \
-  2      2
-/   \  /   \
-3    4 4    3
-Valid
-  1
-/  \
-Valid
-'''
-
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-class Solution:
-    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
-        return self.helper(root.left,root.right)
-        
-    def helper(self, one:[TreeNode], two:[TreeNode]) -> bool:
-        if not one and not two:
-            return True
-        if not one or not two or  one.val != two.val: 
-            return False
-        if one.val != two.val:
-            return False
-        return self.helper(one.left,two.right) and self.helper(one.right, two.left)
+    # Definition for a binary tree node.
+    # class TreeNode:
+    #     def __init__(self, val=0, left=None, right=None):
+    #         self.val = val
+    #         self.left = left
+    #         self.right = right
+    class Solution:
+        def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+            return self.helper(root.left,root.right)
+            
+        def helper(self, one:[TreeNode], two:[TreeNode]) -> bool:
+            if not one and not two:
+                return True
+            if not one or not two or  one.val != two.val: 
+                return False
+            if one.val != two.val:
+                return False
+            return self.helper(one.left,two.right) and self.helper(one.right, two.left)
 
 * 108 EASY SORTED ARRAY TO HEIGHT BALANCED BINARY TREE
+    '''
+    Given an integer array nums where the elements are sorted in ascending order, convert it to a height-balanced binary search tree.
+    A height-balanced binary tree is a binary tree in which the depth of the two subtrees of every node never differs by more than one.
+    Explanation: 
+        Height Balanced means that each side of a tree or subtree cannot differe by a height of more than 1.
+        So we cant have the left side with a height of 2 and the right side with a height of 4>
+        This is mainly to prevent a tree from having all of the values on one side which would basically be a linked list not a tree
 
-'''
-  Given an integer array nums where the elements are sorted in ascending order, convert it to a height-balanced binary search tree.
-  A height-balanced binary tree is a binary tree in which the depth of the two subtrees of every node never differs by more than one.
-  Explanation: 
-    Height Balanced means that each side of a tree or subtree cannot differe by a height of more than 1.
-    So we cant have the left side with a height of 2 and the right side with a height of 4>
-    This is mainly to prevent a tree from having all of the values on one side which would basically be a linked list not a tree
+    [-10,-3,0,5,9]
+        0
+        /   \
+    -10    5
+    / \   / \ 
+        -3     9
+    '''
 
-  [-10,-3,0,5,9]
-      0
-    /   \
-  -10    5
-  / \   / \ 
-    -3     9
-'''
-
-class Solution:
-    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
-      def helper(l,r):
-        if l > r: 
-          return None 
-        m = (l+r)//2
-        root = TreeNode(nums[m])
-        root.left = helper(l, m-1)
-        root.right = helper(m+1,r)
-        return root
-      return helper(0, len(nums)-1)
+    class Solution:
+        def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        def helper(l,r):
+            if l > r: 
+            return None 
+            m = (l+r)//2
+            root = TreeNode(nums[m])
+            root.left = helper(l, m-1)
+            root.right = helper(m+1,r)
+            return root
+        return helper(0, len(nums)-1)
 
 * 101 IF BALANCED BINARY TREE
     '''
@@ -496,3 +494,26 @@ class Solution:
                         return (height,False)
                     return (max(left,right),True)
             return helper(root,1)[1]
+
+* 111 EASY PATH SUM
+    '''
+    Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that 
+    adding up all the values along the path equals targetSum. A leaf is a node with no children. 
+    '''
+
+    # Definition for a binary tree node.
+    # class TreeNode:
+    #     def __init__(self, val=0, left=None, right=None):
+    #         self.val = val
+    #         self.left = left
+    #         self.right = right
+    class Solution:
+        def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+            if not root:
+                return False
+            diff = targetSum-root.val
+            if not root.left and not root.right:
+                return diff == 0
+            left = self.hasPathSum(root.left, diff)
+            right = self.hasPathSum(root.right, diff)
+            return left or right
