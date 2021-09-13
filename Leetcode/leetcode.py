@@ -495,7 +495,32 @@
                     return (max(left,right),True)
             return helper(root,1)[1]
 
-* 111 EASY PATH SUM
+* 111 EASY MINDEPTH TREE
+    '''
+        Given a binary tree, find its minimum depth.
+        The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+        Note: A leaf is a node with no children. 
+    '''
+
+    # Definition for a binary tree node.
+    # class TreeNode:
+    #     def __init__(self, val=0, left=None, right=None):
+    #         self.val = val
+    #         self.left = left
+    #         self.right = right
+    class Solution:
+        def minDepth(self, root: Optional[TreeNode]) -> int:
+            if not root: return 0
+            if not root.left and not root.right:
+                return 1
+            left = self.minDepth(root.left)
+            right = self.minDepth(root.right)
+            if left == 0: return right + 1 
+            elif right == 0: return left + 1
+            else:
+                return 1 + min(left, right)
+
+* 112 EASY PATH SUM
     '''
     Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that 
     adding up all the values along the path equals targetSum. A leaf is a node with no children. 
@@ -516,4 +541,4 @@
                 return diff == 0
             left = self.hasPathSum(root.left, diff)
             right = self.hasPathSum(root.right, diff)
-            return left or right
+            return left or right1
