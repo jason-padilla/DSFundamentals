@@ -542,3 +542,24 @@
             left = self.hasPathSum(root.left, diff)
             right = self.hasPathSum(root.right, diff)
             return left or right1
+
+* 118 EASY PASCALS TRIANGLE
+    '''
+        118E
+        Given an integer numRows, return the first numRows of Pascal's triangle.
+        In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
+
+        Input: numRows = 5                                    Input: numRows = 1
+        Output: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]     Output: [[1]] 
+    '''
+
+    class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        triangle = [[1]]
+        for i in range(1,numRows):
+            temp = [0]+triangle[-1]+[0]
+            row=[]
+            for elm in range(len(temp)-1):
+                row.append(temp[elm]+temp[elm+1])
+            triangle.append(row)
+        return triangle
