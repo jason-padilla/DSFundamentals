@@ -29,4 +29,3 @@ class Solution:
   # We return False because this would mean that 1 level higher we didnt get a diff of 0 
 #5 going up through the recursion we compare left and right by doing (left or right)
   #Using the OR comparison will return True if any of the paths added to targetSum
-  
