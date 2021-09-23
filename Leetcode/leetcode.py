@@ -554,12 +554,36 @@
     '''
 
     class Solution:
-    def generate(self, numRows: int) -> List[List[int]]:
-        triangle = [[1]]
-        for i in range(1,numRows):
-            temp = [0]+triangle[-1]+[0]
-            row=[]
-            for elm in range(len(temp)-1):
-                row.append(temp[elm]+temp[elm+1])
-            triangle.append(row)
-        return triangle
+        def generate(self, numRows: int) -> List[List[int]]:
+            triangle = [[1]]
+            for i in range(1,numRows):
+                temp = [0]+triangle[-1]+[0]
+                row=[]
+                for elm in range(len(temp)-1):
+                    row.append(temp[elm]+temp[elm+1])
+                triangle.append(row)
+            return triangle
+
+* 121 EASY BEST TIME TO BUY AND SELL STOCK 
+    '''
+        You are given an array prices where prices[i] is the price of a given stock on the ith day.
+        You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+        Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0. 
+        
+        Input: prices = [7,1,5,3,6,4]
+        Output: 5
+        Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+    '''
+
+    class Solution:
+        def maxProfit(self, prices: List[int]) -> int:
+            profit = 0
+            left = 0
+            right = 1
+            while right < len(prices):
+                if prices[left] < prices[right]:
+                    profit = max(profit,prices[right] - prices[left])
+                else:
+                    left = right
+                right += 1
+            return profit
