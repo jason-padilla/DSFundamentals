@@ -587,3 +587,29 @@
                     left = right
                 right += 1
             return profit
+
+* 125 EASY VALID PALINDROME 
+    '''
+        Given a string s, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+        Input: s = "A man, a plan, a canal: Panama"
+        Output: true
+        Explanation: "amanaplanacanalpanama" is a palindrome.
+    '''
+    
+    class Solution:
+        def isPalindrome(self, s: str) -> bool:
+            left = 0
+            right = len(s) - 1
+            while left < right:
+                if s[left].isalnum():
+                    if s[right].isalnum():
+                        if s[left].upper() == s[right].upper():
+                            left += 1
+                            right -= 1
+                        else:
+                            return False
+                    else:
+                        right -= 1
+                else:
+                    left += 1
+            return True
