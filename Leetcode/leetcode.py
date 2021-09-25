@@ -680,3 +680,31 @@
     #1 If we reach an empty node return an empty list 
     #2 Split the root into left and right 
     #3 return in the order you want, in this case preorder 
+* 160 INTERSECTION OF TWO NODES
+    '''
+        Given the heads of two singly linked-lists headA and headB, return the node at which the two lists intersect. 
+        If the two linked lists have no intersection at all, return null.
+        For example, the following two linked lists begin to intersect at node c1: 
+        a1 -> a2 \ 
+                    c1 -> c2 -> c3
+        b1 -> b2 /
+        return c1
+
+        a1 -> a2 ->
+        b1 -> b2 ->
+        return None
+    '''
+    class Solution:
+        def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+            p1 = headA
+            p2 = headB
+            while p1 != p2:
+            if p1:
+                p1 = p1.next
+            else:
+                p1 = headB
+            if p2:
+                p2 = p2.next
+            else:
+                p2 = headA
+            return p1
