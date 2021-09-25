@@ -633,3 +633,50 @@
             for i in nums:
                 a ^= i
             return a
+
+* 141 EASY LINKED LIST CYCLE 
+    '''
+        Given head, the head of a linked list, determine if the linked list has a cycle in it.
+        There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. 
+        Internally, pos is used to denote the index of the node that tail's next pointer is connected to. 
+        Note that pos is not passed as a parameter.
+        Return true if there is a cycle in the linked list. Otherwise, return false. 
+        Input: head = [3,2,0,-4], pos = 1
+        Output: true
+        Explanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).
+    '''
+    
+    class Solution:
+    def hasCycle(self, head: ListNode) -> bool:
+        if not head:
+        return False
+        slow = head 
+        fast = head.next
+        while slow != fast:
+        if not fast or not fast.next:
+            return False
+        slow = slow.next
+        fast = fast.next.next
+        return True
+
+    #Summary
+    #1 This is a fast and slow method, the slow will move at a regular pace
+    # the fast will move 2x faster than slow 
+    #If fast and slow ever equal each other that means their is a cycle
+
+* 144 BINARY TREE PREORDER TRAVERSAL 
+    '''
+        144 BInary Tree Preorder Traversal
+        Given the root of a binary tree, return the preorder traversal of its nodes' values. 
+    '''
+    class Solution:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+        return []
+        left = self.preorderTraversal(root.left)
+        right = self.preorderTraversal(root.right)
+        return [root.val] + left + right
+    #Summary 
+    #1 If we reach an empty node return an empty list 
+    #2 Split the root into left and right 
+    #3 return in the order you want, in this case preorder 
