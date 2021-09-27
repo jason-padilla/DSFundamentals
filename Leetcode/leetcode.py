@@ -758,3 +758,32 @@
             result += chr(ord('A') + (columnNumber-1) % 26)
             columnNumber = (columnNumber-1) // 26
             return result[::-1]
+
+* 169 MAJORITY ELEMENT
+    '''
+        Given an array nums of size n, return the majority element.
+        The majority element is the element that appears more than ⌊n / 2⌋ times. 
+        You may assume that the majority element always exists in the array.
+
+        Example 1:
+        Input: nums = [3,2,3]
+        Output: 3
+        
+        Example 2:
+        Input: nums = [2,2,1,1,1,2,2]
+        Output: 2
+    '''
+
+    class Solution:
+        def majorityElement(self, nums: List[int]) -> int: 
+            counter = 0
+            elm = None  
+            for i in nums:
+            if counter == 0:
+                elm = i
+                counter += 1
+            elif elm == i:
+                counter += 1
+            else:
+                counter -= 1
+            return elm
