@@ -787,3 +787,30 @@
             else:
                 counter -= 1
             return elm
+
+* 171 EXCEL SHEET COLUMN NUMBER
+    '''
+        Given a string columnTitle that represents the column title as appear in an Excel sheet, return its corresponding column number.
+        Example 1:
+        Input: columnTitle = "A"
+        Output: 1
+
+        Example 2:
+        Input: columnTitle = "AB"
+        Output: 28
+
+        Example 3:
+        Input: columnTitle = "ZY"
+        Output: 701
+
+        Example 4:
+        Input: columnTitle = "FXSHRXW"
+        Output: 2147483647
+    '''
+
+    class Solution:
+        def titleToNumber(self, columnTitle: str) -> int:
+            result = 0
+            for i in columnTitle:
+            result = 1 + (result*26) + (ord(i)-65) % 26
+            return resul
