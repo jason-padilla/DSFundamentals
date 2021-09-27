@@ -814,3 +814,17 @@
             for i in columnTitle:
             result = 1 + (result*26) + (ord(i)-65) % 26
             return resul
+
+* 190 REVERSE BITS
+    '''
+        Reverse bits of a given 32 bits unsigned integer. 
+        Input: n = 00000010100101000001111010011100
+        Output:    964176192 (00111001011110000010100101000000)
+    '''
+    class Solution:
+        def reverseBits(self, n: int) -> int:
+            res = 0
+            for i in range(32):
+            bit = (n >> i) & 1
+            res = res | bit << (31-i)
+            return res
