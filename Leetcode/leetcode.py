@@ -728,3 +728,33 @@
                 r -= 1
             else:
                 l += 1
+
+* 168 EXCEL SHEET COLUMN TITLE
+
+    ''' 
+        168 Excel Sheet Column Title 
+        Given an integer columnNNumber return its corresponding column title as it appears in an Excel sheet.
+        Example 1:
+        Input: columnNumber = 1
+        Output: "A"
+
+        Example 2:
+        Input: columnNumber = 28
+        Output: "AB"
+        
+        Example 3:
+        Input: columnNumber = 701
+        Output: "ZY"
+        
+        Example 4:
+        Input: columnNumber = 2147483647
+        Output: "FXSHRXW"
+    '''
+
+    class Solution:
+        def convertToTitle(self, columnNumber: int) -> str:
+            result = ""
+            while columnNumber:
+            result += chr(ord('A') + (columnNumber-1) % 26)
+            columnNumber = (columnNumber-1) // 26
+            return result[::-1]
