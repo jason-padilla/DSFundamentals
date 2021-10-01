@@ -969,3 +969,24 @@
             m1[ord(s[i])] = i+1
             m2[ord(t[i])] = i+1
             return True
+
+* 206 REVERSE LINKED LIST
+    '''
+        Given the head of a singly linked list, reverse the list, and return the reversed list.
+    '''
+    class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev = None
+        current = head
+        while current:
+        temp = current.next 
+        current.next = prev 
+        prev = current 
+        current = temp
+        return prev
+    #Summary 
+    #1 Reverse a LL by first setting the next value into a temp val 
+    #2 Then make the next value point a to the prev value 
+    #3 Change prev to now be current; this essentialy moves the pointer of prev
+    #4 Finally move current to temp which points to the orginal next value 
+    #5 Time: Linear, Space: Constant
