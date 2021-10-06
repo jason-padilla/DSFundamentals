@@ -101,6 +101,7 @@
     - stack.append("first append") #deque uses append instead of the tradition push
     - stack.append("second append")
     - stack.pop()
+    - [1] -> [1,2] -[1,2,3] -> [1,2]
   * BIG O
     - push/pop element : O(1)
     - search elm: O(n)
@@ -120,6 +121,7 @@
     - q.appendleft(2)
     - q.appendleft(3)
     - q.pop()
+    - [1] -> [2,1] -[3,2,1] -> [3,2]
   * BIG O
     - push/pop element : O(1)
     - search elm: O(n)
