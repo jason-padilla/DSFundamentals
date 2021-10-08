@@ -984,9 +984,124 @@
         prev = current 
         current = temp
         return prev
-    #Summary 
-    #1 Reverse a LL by first setting the next value into a temp val 
-    #2 Then make the next value point a to the prev value 
-    #3 Change prev to now be current; this essentialy moves the pointer of prev
-    #4 Finally move current to temp which points to the orginal next value 
-    #5 Time: Linear, Space: Constant
+
+* 217 CONTAINS DUPLICATE
+    '''
+        Given an integer array nums, return true if any value appears at least twice in the array, 
+        and return false if every element is distinct.
+    '''
+    class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        return len(set(nums)) != len(nums)
+
+* 226 INVERT BINARY TREE
+    '''
+        226 INVERT BINARY TREE 
+        Given the root of a binary tree, invert the tree, and return its root.
+        
+        Input: root = [4,2,7,1,3,6,9]
+        Output: [4,7,2,9,6,3,1]
+        
+        Input: root = [2,1,3]
+        Output: [2,3,1]
+    '''
+    class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if root:
+        root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
+        return root
+
+* 228 SUMMARY RANGES
+    '''
+        You are given a sorted unique integer array nums.
+        Return the smallest sorted list of ranges that cover all the numbers in the array exactly. 
+        That is, each element of nums is covered by exactly one of the ranges, 
+        and there is no integer x such that x is in one of the ranges but not in nums.
+        
+        Each range [a,b] in the list should be output as:
+            "a->b" if a != b
+            "a" if a == b
+    '''
+    
+    class Solution:
+    def summaryRanges(self, nums: List[int]) -> List[str]:
+        result = []
+        for num in nums:
+        if not result or result[-1][-1]+1 != num:
+            result.append([num])
+        else:
+            result[-1].append(num)
+        return [str(i[0]) + "->" + str(i[-1]) if len(i) > 1 else str(i[0]) for i in result]
+
+* 231 POWER OF TWO
+    '''
+        Given an integer n, return true if it is a power of two. Otherwise, return false.
+        An integer n is a power of two, if there exists an integer x such that n == 2^x.
+    '''
+
+    class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+        return not n&n-1 if n else False
+
+* 232 IMPLEMENT QUEUE USING STACKS
+
+'''
+  Implement a first in first out (FIFO) queue using only two stacks. 
+  The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
+  Implement the MyQueue class:
+  void push(int x) Pushes element x to the back of the queue.
+  int pop() Removes the element from the front of the queue and returns it.
+  int peek() Returns the element at the front of the queue.
+  boolean empty() Returns true if the queue is empty, false otherwise.
+'''
+class MyQueue:
+  def __init__(self):
+    self.new = []
+    self.old = []
+
+  def push(self, x: int) -> None:
+    self.new.append(x)
+
+  def pop(self) -> int:
+    if not self.old:
+      while self.new:
+        self.old.append(self.new.pop())
+    return self.old.pop()
+
+  def peek(self) -> int:
+    if not self.old:
+      while self.new:
+        self.old.append(self.new.pop())
+    return self.old[-1]
+
+  def empty(self) -> bool:
+    return (len(self.new) + len(self.old)) == 0
+
+* 234 PALINDROME LINKED LIST
+    '''
+        Given the head of a singly linked list, return true if it is a palindrome.
+        Input: head = [1,2,2,1]   Input: head = [1,2]
+        Output: true              Output: true
+    ''' 
+
+    class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        mid, end = head, head 
+        #Find mid point
+        while end and end.next:
+        mid = mid.next 
+        end = end.next.next 
+        #Reverse right side of the LL
+        prev = None
+        while mid:
+        temp = mid.next
+        mid.next = prev 
+        prev = mid
+        mid = temp
+        #Compare left and right sides
+        left, right = head, prev
+        while right: 
+        if left.val != right.val:
+            return False
+        left, right = left.next, right.next
+        return True
