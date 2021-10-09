@@ -22,3 +22,15 @@
   - If we have a linked list we can traverse and compare vals 
   - Slow = root.next 
   - Fast = root.next.next  
+
+* SUM OF NUMBERS 
+  - len(nums)*(len(nums)+1)//2
+    def missingNumber(self, nums: List[int]) -> int:
+    return len(nums)*(len(nums)+1)//2 - sum(nums)
+
+* ADD DIGITS 
+  class Solution(object):
+    def addDigits(self, num):
+      if num == 0:
+          return 0
+      return num % 9 or 9

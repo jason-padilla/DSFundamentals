@@ -6,3 +6,9 @@ class Solution:
     while num >= 10:
       num = (num//10)+(num%10)  
     return num 
+
+class Solution(object):
+  def addDigits(self, num):
+    if num == 0:
+        return 0
+    return num % 9 or 9
