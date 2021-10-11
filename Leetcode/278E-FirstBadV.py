@@ -21,3 +21,9 @@ class Solution:
         l = mid + 1
     return l
 #Summary 
+#To find the first bad version we need to move inward 
+#If the mid point is bad than we make right be the mid
+  # This means that any val after is also bad  
+#If the mid isnt bad that we make left = mid+1
+  # This means that none of the left side from right is bad
+# We keep narrowing down until we find the first bad
