@@ -1228,3 +1228,40 @@ class Solution:
             words = s.split(" ")
             if len(words) != len(pattern): return False
             return len(set(zip(pattern,words))) == len(set(words)) == len(set(pattern))
+
+* 303 RANGE SUM QUERY 
+    '''
+        Given an integer array nums, handle multiple queries of the following type:
+            Calculate the sum of the elements of nums between indices left and right inclusive where left <= right.
+        Implement the NumArray class:
+            NumArray(int[] nums) Initializes the object with the integer array nums.
+            int sumRange(int left, int right) Returns the sum of the elements of nums between indices left and right inclusive 
+            (i.e. nums[left] + nums[left + 1] + ... + nums[right]).
+    '''
+    class NumArray:
+        def __init__(self, nums: List[int]):
+            self.range = [0]+list(accumulate(nums))
+
+        def sumRange(self, left: int, right: int) -> int:
+            return self.range[right+1] - self.range[left]
+
+* 326 POWER OF THREE 
+    '''
+        Given an integer n, return true if it is a power of three. Otherwise, return false.
+        An integer n is a power of three, if there exists an integer x such that n == 3x. 
+
+        Input: n = 27   Input: n = 0    Input: n = 45
+        Output: true    Output: false   Output: false
+    '''
+
+    class Solution:
+        def isPowerOfThree(self, n: int) -> bool:
+            p = 0
+            while 3**p < n:
+            p += 1
+            return 3**p == n
+
+    class Solution:
+        def isPowerOfThree(self, n: int) -> bool:
+            max = 3**19
+            return n > 0 and max%n == 0
