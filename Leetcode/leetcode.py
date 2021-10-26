@@ -180,6 +180,82 @@
                 nums[idx] = i 
             return idx+1
 
+* 28 EASY IMPLEMENT STR
+    '''
+        Implement strStr().
+        Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+        Input: haystack = "hello", needle = "ll"
+        Output: 2
+
+        Input: haystack = "aaaaa", needle = "bba"
+        Output: -1
+
+        Input: haystack = "", needle = ""
+        Output: 0
+    ''' 
+    class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        if len(needle) == 0: return 0
+        if len(needle) > len(haystack): return -1
+        for i in range(len(haystack)):
+            end = len(needle) + i
+            if haystack[i:end] == needle:
+            return i
+        return -1
+* 35 EASY SEARCH INSERT POSITION
+    '''
+        Given a sorted array of distinct integers and a target value, return the index if the target is found. 
+        If not, return the index where it would be if it were inserted in order.
+        You must write an algorithm with O(log n) runtime complexity.
+        
+        Input: nums = [1,3,5,6], target = 5
+        Output: 2
+
+        Input: nums = [1,3,5,6], target = 2
+        Output: 1
+
+        Input: nums = [1,3,5,6], target = 7
+        Output: 4
+    '''
+
+    class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums)-1
+        while l <= r:
+            m = (l+r)//2
+            if nums[m] == target:
+            return m
+            elif nums[m] < target:
+            l = m+1
+            elif nums[m] > target:
+            r = m-1
+        return l
+* 53 MAXIMUM SUBARRAY 
+    '''
+        Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+        A subarray is a contiguous part of an array. 
+
+        Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+        Output: 6
+        Explanation: [4,-1,2,1] has the largest sum = 6.
+
+        Input: nums = [5,4,-1,7,8]
+        Output: 23
+    '''
+
+    class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        largest = nums[0]
+        current = nums[0]
+        for i in nums[1:]:
+        if current+i < i:
+            current = i
+        else:
+            current += i
+        largest = max(largest,current)
+        return largest
+
 * IS NUMBER PALINDROME
     - check to see if the number is a palindrom including negative numbers
     - 1, 121, 2222, 12321 yes
