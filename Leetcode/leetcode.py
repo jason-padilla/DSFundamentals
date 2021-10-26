@@ -1,3 +1,185 @@
+* 1 EASY TWO SUM
+    '''
+        Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+        You may assume that each input would have exactly one solution, and you may not use the same element twice.
+        You can return the answer in any order.
+
+        Input: nums = [2,7,11,15], target = 9
+        Output: [0,1]
+        Output: Because nums[0] + nums[1] == 9, we return [0, 1].
+
+        Input: nums = [3,2,4], target = 6
+        Output: [1,2]
+    ''' 
+    class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        dix = {} 
+        for i in range(len(nums)):
+        diff = target-nums[i]
+        if diff in dix:
+            return [dix[diff],i]
+        else:
+            dix[nums[i]] = i
+
+* 9 EASY PALINDROME NUMBER 
+    '''
+        Given an integer x, return true if x is palindrome integer.
+        An integer is a palindrome when it reads the same backward as forward. For example, 121 is palindrome while 123 is not. 
+        
+        Input: x = 121
+        Output: true
+
+        Input: x = -121
+        Output: false
+        Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
+
+        Input: x = 10
+        Output: false
+        Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
+    '''
+
+    class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        if x < 0: return False
+        s = str(x)
+        l,r = 0, len(s)-1
+        while l < r:
+        if s[l] != s[r]:
+            return False
+        l, r = l+1, r-1
+        return True
+
+    class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        if x < 0:
+        return False 
+        inverted = 0
+        original = x
+        while x > 0:
+        inverted *= 10
+        inverted += (x%10)
+        x = x//10
+        return inverted == original  
+
+* 13 EASY ROMAN TO INTEGER 
+    ''' 
+        Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M. 
+
+        Input: s = "III"
+        Output: 3 
+
+        Input: s = "IX"
+        Output: 9
+
+        Input: s = "LVIII"
+        Output: 58
+        Explanation: L = 50, V= 5, III = 3.
+    '''
+
+    class Solution:
+    def romanToInt(self, s: str) -> int:
+        converter = {"I":1, "V":5, "X":10, "L":50, "C":100, "D":500, "M":1000}
+        result = converter[s[0]]
+        for i in range(1,len(s)):
+        previous = converter[s[i-1]]
+        current = converter[s[i]]
+        if previous < current:
+            result -= previous * 2
+        result += current
+        return result
+
+* 14 EASY LONGEST PREFIX 
+    '''
+        Write a function to find the longest common prefix string amongst an array of strings.
+        If there is no common prefix, return an empty string "".
+
+        Input: strs = ["flower","flow","flight"]
+        Output: "fl"
+
+        Input: strs = ["dog","racecar","car"]
+        Output: ""
+    '''
+
+    class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        res = ''
+        for i in range(len(strs[0])):
+        for s in strs:
+            if i == len(s) or s[i] != strs[0][i]:
+            return res
+        res += strs[0][i]
+        return res
+
+* 20 VALID PARENTHESES 
+    '''
+        Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+        An input string is valid if:
+        Open brackets must be closed by the same type of brackets.
+        Open brackets must be closed in the correct order.
+
+    '''
+    class Solution:
+    def isValid(self, s: str) -> bool:
+        if len(s) % 2 != 0: return False
+        dix = {'(':')', '{':'}', '[':']'}
+        st = []
+        for i in s:
+        if i == '(' or i == '{' or i == '[':
+            st.append(i)
+        elif len(st) == 0 or dix[st[-1]] != i:
+            return False 
+        else:
+            st.pop()
+        return len(st) == 0
+
+* 21 MERGE TWO SORTED LINKED LISTS 
+    '''
+        Merge two sorted linked lists and return it as a sorted list. The list should be made by splicing together the nodes of the first two lists. 
+        
+        Input: l1 = [1,2,4], l2 = [1,3,4]   Input: l1 = [], l2 = []   Input: l1 = [], l2 = [0]
+        Output: [1,1,2,3,4,4]               Output: []                Output: [0]
+    '''
+    class Solution:
+    def mergeTwoLists(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        head = res = ListNode(0)
+        while l1 or l2:
+            if not l1:
+                res.next = l2
+                l2 = l2.next
+            elif not l2:
+                res.next = l1
+                l1 = l1.next
+            else:
+                if l1.val <= l2.val:
+                res.next = l1
+                l1 = l1.next
+                else:
+                res.next = l2
+                l2 = l2.next
+            res = res.next
+        return head.next
+
+* 26 EASY REMOVE DUPLICATES FROM SORTED ARRAY 
+    ''' 
+        Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. 
+        The relative order of the elements should be kept the same.
+        Since it is impossible to change the length of the array in some languages, 
+        you must instead have the result be placed in the first part of the array nums. 
+        More formally, if there are k elements after removing the duplicates, then the first k elements of nums should hold the final result. 
+        It does not matter what you leave beyond the first k elements.
+        Return k after placing the final result in the first k slots of nums.
+        Do not allocate extra space for another array. You must do this by modifying the input array in-place with O(1) extra memory.
+    '''
+
+    class Solution:
+        def removeDuplicates(self, nums: List[int]) -> int:
+            idx = 0
+            for i in nums:
+            if i != nums[idx]:
+                idx += 1
+                nums[idx] = i 
+            return idx+1
+
 * IS NUMBER PALINDROME
     - check to see if the number is a palindrom including negative numbers
     - 1, 121, 2222, 12321 yes
