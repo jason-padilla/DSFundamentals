@@ -203,6 +203,7 @@
             if haystack[i:end] == needle:
             return i
         return -1
+
 * 35 EASY SEARCH INSERT POSITION
     '''
         Given a sorted array of distinct integers and a target value, return the index if the target is found. 
@@ -231,6 +232,7 @@
             elif nums[m] > target:
             r = m-1
         return l
+
 * 53 MAXIMUM SUBARRAY 
     '''
         Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
@@ -255,6 +257,81 @@
             current += i
         largest = max(largest,current)
         return largest
+
+* 66 EASY PLUS ONE 
+    '''
+        You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. 
+        The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading 0's.
+        Increment the large integer by one and return the resulting array of digits.
+
+        Input: digits = [1,2,3]
+        Output: [1,2,4]
+        Explanation: The array represents the integer 123.
+        Incrementing by one gives 123 + 1 = 124.
+        Thus, the result should be [1,2,4].
+    '''
+    
+    #No String Conversion
+    class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        carry = 1
+        for i in range(len(digits)-1,-1,-1):
+        if digits[i] + carry > 9:
+            digits[i] = 0
+            carry = 1
+        else:
+            digits[i] += carry
+            carry = 0
+        if carry: 
+        return [1]+digits
+        return digits
+
+* 67 EASY ADD BINARY 
+    '''
+        Given two binary strings a and b, return their sum as a binary string.
+        Input: a = "11", b = "1"    Input: a = "1010", b = "1011"
+        Output: "100"               Output: "10101"
+    '''
+
+    #Using a Stack
+    class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        a = list(a)
+        b = list(b)
+        result = ''
+        carry = 0
+        while a or b:
+        if a:
+            carry += int(a.pop())
+        if b:
+            carry += int(b.pop())
+        result = str(carry%2) + result
+        carry //= 2
+        if carry:
+        return '1' + result
+        return result
+
+* 69 EASY SQRT 
+    '''
+        Given a non-negative integer x, compute and return the square root of x.
+        Since the return type is an integer, the decimal digits are truncated, and only the integer part of the result is returned.
+        Note: You are not allowed to use any built-in exponent function or operator, such as pow(x, 0.5) or x ** 0.5. 
+        
+        Input: x = 4  Input: x = 8
+        Output: 2     Output: 2
+    '''
+        
+    class Solution:
+    def mySqrt(self, x: int) -> int:
+        if x < 2:
+        return x
+        left, right = 2, x
+        while left < right:
+        mid = (left+right)//2
+        if mid*mid == x: return mid
+        elif mid*mid > x: right = mid
+        elif mid*mid < x: left = mid + 1
+        return left - 1
 
 * IS NUMBER PALINDROME
     - check to see if the number is a palindrom including negative numbers
