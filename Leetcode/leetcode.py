@@ -1588,3 +1588,58 @@ class Solution:
         carry = res//10
         if carry: curr.next = ListNode(1)
         return head.next
+
+* 3 MEDIUM LONGEST SUBSTRING WITHOUT REPEATING CHARACTERS
+'''
+  Given a string s, find the length of the longest substring without repeating characters.
+'''
+
+class Solution:
+  def lengthOfLongestSubstring(self, s: str) -> int:
+    curr = set()
+    p = longest = 0
+    for i in range(len(s)):
+      while s[i] in curr:
+        curr.remove(s[p])
+        p += 1
+      curr.add(s[i])
+      longest = max(longest,len(curr))
+    return longest
+
+* 130 MEDIUM SURROUNDED REGIONS 
+    '''
+        Given an m x n matrix board containing 'X' and 'O', capture all regions that are 4-directionally surrounded by 'X'.
+        A region is captured by flipping all 'O's into 'X's in that surrounded region.
+        ['X', 'X', 'X', 'X']      ['X', 'X', 'X', 'X']      ['X', 'X', 'X', 'X']
+        ['X', 'O', 'O', 'X']  ->  ['X', 'O', 'O', 'X']  ->  ['X', 'X', 'X', 'X']
+        ['X', 'X', 'O', 'X']      ['X', 'X', 'O', 'X']      ['X', 'X', 'X', 'X']
+        ['X', 'O', 'X', 'X']      ['X', 'T', 'X', 'X']      ['X', 'O', 'X', 'X']
+    '''
+
+    class Solution:
+    def solve(self, board: List[List[str]]) -> None:
+        rows, cols = len(board), len(board[0])
+        #Step 2: Change edge 0s and surroudings to Ts
+        def capture(r,c):
+        if (0 <= r < rows) and (0 <= c < cols) and board[r][c] == 'O': 
+            board[r][c] = 'T'
+            capture(r+1,c)
+            capture(r-1,c)
+            capture(r,c+1)
+            capture(r,c-1)
+        return 
+        #Step 1: Find all edge Os
+        for r in range(rows):
+        for c in range(cols):
+            if board[r][c] == 'O' and (r in [0,rows-1] or c in [0,cols-1]):
+            capture(r,c)
+        #Step 3: Change non Ts to Xs
+        for r in range(rows):
+        for c in range(cols):
+            if board[r][c] == 'O':
+            board[r][c] = 'X'
+        #Step 4: Revert all Ts to Os
+        for r in range(rows):
+        for c in range(cols):
+            if board[r][c] == 'T':
+            board[r][c] = 'O'
