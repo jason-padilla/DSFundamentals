@@ -1666,3 +1666,76 @@ class Solution:
             res = s[l:r+1]
             l, r = l-1, r+1
         return res
+
+* 6 MEDIUM ZIGZAG CONVERSION 
+    '''
+        The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: 
+        (you may want to display this pattern in a fixed font for better legibility)
+        Input: s = "PAYPALISHIRING", numRows = 3
+            P   A   H   N
+            A P L S I I G
+            Y   I   R
+        Output: "PAHNAPLSIIGYIR"
+
+        Input: s = "PAYPALISHIRING", numRows = 4
+            P     I    N
+            A   L S  I G
+            Y A   H R
+            P     I
+        "PINALSIGYAHRPI"
+    '''
+
+    class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        if len(s) == 1 or numRows == 1: return s
+        rows = [[] for i in range(numRows)]
+        idx = 0
+        mid = False
+        for c in s:
+        if mid and idx > 0:
+            rows[idx].append(c)
+            idx -= 1
+        else:
+            mid = False
+            rows[idx].append(c)
+            idx += 1
+            if idx == numRows:
+            idx -= 2
+            mid = True
+        res = ''
+        for l in rows:
+        res += ''.join(l)
+        return res
+
+* 8 MEDIUM STRING TO INTEGER 
+    '''
+        Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer (similar to C/C++'s atoi function).
+        The algorithm for myAtoi(string s) is as follows:
+        Read in and ignore any leading whitespace.
+        Check if the next character (if not already at the end of the string) is '-' or '+'. Read this character in if it is either. This determines if the final result is negative or positive respectively. Assume the result is positive if neither is present.
+        Read in next the characters until the next non-digit character or the end of the input is reached. The rest of the string is ignored.
+        Convert these digits into an integer (i.e. "123" -> 123, "0032" -> 32). If no digits were read, then the integer is 0. Change the sign as necessary (from step 2).
+        If the integer is out of the 32-bit signed integer range [-231, 231 - 1], then clamp the integer so that it remains in the range. Specifically, integers less than -231 should be clamped to -231, and integers greater than 231 - 1 should be clamped to 231 - 1.
+        Return the integer as the final result. 
+    '''
+    class Solution:
+    def myAtoi(self, s: str) -> int:
+        if len(s) == 0 or s[0] not in set(' +-0123456789'): return 0
+        p = 0
+        sign = 1
+        while p < len(s) and s[p] == ' ':
+        p+=1
+        if p < len(s)-1 and s[p] == '-':
+        sign = -1
+        p += 1
+        elif p < len(s)-1 and s[p] == '+':
+        p+=1
+        res = 0
+        while p < len(s) and s[p] in set('0123456789'):
+        res = (res * 10) + int(s[p])
+        p+=1
+        if res*sign > 2**31 - 1:
+        return 2**31 - 1
+        elif res*sign < -2**31:
+        return -2**31
+        return res*sign
