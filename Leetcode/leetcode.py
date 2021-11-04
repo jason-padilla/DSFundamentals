@@ -1562,6 +1562,63 @@ class Solution:
     def findTheDifference(self, s: str, t: str) -> str:
         return list(Counter(t) - Counter(s))[0]
 
+* 392 IS SUBSEQUENCE
+    '''
+        Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+        A subsequence of a string is a new string that is formed from the original string by 
+        deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. 
+        (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
+        Input: s = "abc", t = "ahbgdc"    Input: s = "axc", t = "ahbgdc"
+        Output: true                      Output: false
+    '''
+    class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        if len(s) > len(t): return False
+        idx = 0
+        for i in t:
+        if idx < len(s) and i == s[idx]:
+            idx += 1
+        return len(s)== idx
+
+* 401 EASY BIT WATCH 
+    '''
+        A binary watch has 4 LEDs on the top which represent the hours (0-11), and the 6 LEDs on the bottom represent the minutes (0-59).
+        Each LED represents a zero or one, with the least significant bit on the right.
+        For example, the below binary watch reads "4:51".
+        Given an integer turnedOn which represents the number of LEDs that are currently on, 
+        return all possible times the watch could represent. You may return the answer in any order. 
+    '''
+
+    class Solution:
+    def readBinaryWatch(self, turnedOn: int) -> List[str]:
+        times = []
+        for h in range(12):
+        for m in range(60):
+            if (bin(h) + bin(m)).count('1') == turnedOn:
+            times.append(f'{h}:{m:02d}')
+        return times  
+
+* 404 EASY SUM OF LEFT LEAVES
+    '''
+        Given the root of a binary tree, return the sum of all left leaves. 
+                3
+            /   \
+            9       20
+        /   \    /   \
+                15    7
+        Input: root = [3,9,20,null,null,15,7]
+        Output: 24
+        Explanation: There are two left leaves in the binary tree, with values 9 and 15 respectively.
+    '''
+    class Solution:
+        def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0 
+        elif root.left and not root.left.left and not root.left.right:
+            return root.left.val + self.sumOfLeftLeaves(root.right)
+        else:
+            return self.sumOfLeftLeaves(root.left) + self.sumOfLeftLeaves(root.right) 
+
 * * * MEDIUM * * * 
 
 * 2 MED ADD TWO NUMBERS 
