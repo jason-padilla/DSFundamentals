@@ -1619,6 +1619,29 @@ class Solution:
         else:
             return self.sumOfLeftLeaves(root.left) + self.sumOfLeftLeaves(root.right) 
 
+* 441 EASY ARRANGING COINS 
+    '''
+        You have n coins and you want to build a staircase with these coins. 
+        The staircase consists of k rows where the ith row has exactly i coins. 
+        The last row of the staircase may be incomplete.
+        Given the integer n, return the number of complete rows of the staircase you will build. 
+        c                                   c
+        cc                                  cc
+        ccx                                 ccc
+                                            ccxx
+        Input: n = 5                        Input: n = 8
+        Output: 2                           Output: 3
+        Explanation: 3rd row is incomplete. Explanation: 4th row is incomplete.
+    '''
+    #Brute Force
+    class Solution:
+    def arrangeCoins(self, n: int) -> int:
+        count = 1
+        while (n - count) >= 0:
+        n -= count
+        count += 1
+        return count - 1
+    
 * * * MEDIUM * * * 
 
 * 2 MED ADD TWO NUMBERS 
@@ -1796,3 +1819,25 @@ class Solution:
         elif res*sign < -2**31:
         return -2**31
         return res*sign
+
+* 11 MEDIUM CONTAINER WITH MOST WATER 
+    '''
+        Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai).
+        n vertical lines are drawn such that the two endpoints of the line i is at (i, ai) and (i, 0). 
+        Find two lines, which, together with the x-axis forms a container, such that the container contains the most water.
+        Notice that you may not slant the container. 
+
+        Input: height = [1,8,6,2,5,4,8,3,7]
+        Output: 49
+        Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. 
+        In this case, the max area of water (blue section) the container can contain is 49.
+    '''
+
+    class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        l, r, res = 0, len(height) - 1, 0
+        while l < r:
+        res = max(res,(r-l) * min(height[r],height[l]))
+        if height[l] < height[r]: l+= 1
+        else: r-=1
+        return res
